@@ -10,7 +10,7 @@ typedef struct student{
 	int grade;
 } Student;
 
-void print_student(Student* student, int i){
+void print_student(Student* student){
 	printf("%d %s %d %s \n", student->id, student->group, student->grade, student->name);
 }
 
@@ -18,7 +18,7 @@ int main(int argc, char** argv){
 	FILE* file = fopen("students.txt", "r");
 	int size;
 	fscanf(file, "%d", &size); 
-	Student* array = (Student*) malloc(sizeof(Student) * size); 
+	Student* array = (Student*) malloc(sizeof(Student) * size);
 	for (int i=0; i != size; i++){
 		fscanf(file, "%d%s%d", &array[i].id, array[i].group, &array[i].grade);
 		fgets(array[i].name, 127, file);
@@ -29,7 +29,7 @@ int main(int argc, char** argv){
 		printf("Студент с id: %d\n", id);
 		for (int i = 0; i!=size; i++){
 			if (array[i].id == id){
-				print_student(array, i);
+				print_student(&array[i]);
 			}
 		}
 	}
@@ -38,7 +38,7 @@ int main(int argc, char** argv){
 		printf("Студент с частью имени: %s\n", argv[2]);
 		for (int i = 0; i!=size; i++){
 			if (strstr(array[i].name, argv[2]) != NULL){
-				print_student(array, i);
+				print_student(&array[i]);
 			}
 		}
 	}
@@ -47,7 +47,7 @@ int main(int argc, char** argv){
 		printf("Студенты группы: %s\n", argv[2]);
 		for (int i = 0; i!=size; i++){
 			if (strcmp(array[i].group, argv[2]) == 0){
-				print_student(array, i);
+				print_student(&array[i]);
 			}
 		}
 	}
@@ -56,11 +56,11 @@ int main(int argc, char** argv){
 		int av_grade = atoi(argv[2]);
 		for (int i=0; i!=size; i++){
 			if (array[i].grade>av_grade){
-				print_student(array, i);
+				print_student(&array[i]);
 			}
 		}
 	}
-	
+		
 	free(array);
 	return 0;
 }
