@@ -171,13 +171,13 @@ int Palindrome(List* list) {
 }
 
 void print_list(List* list) {
-	printf("\"");
+	printf("{");
 	ListElement* to_tail = list->head;
 	while(to_tail != NULL) {
 		printf("%d ", to_tail->value);
 		to_tail = to_tail->to_tail;
 	}
-	printf("\"\n");
+	printf("}\n");
 }
 
 void clear_list(List* list) {
